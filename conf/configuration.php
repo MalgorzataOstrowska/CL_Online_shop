@@ -6,5 +6,5 @@ return [
     'servername' => 'localhost',
     'username' => 'root',
     'password' => 'coderslab',
-    'database' => 'cl_twitter',
+    'database' => 'cl_online_shop',
 ];
