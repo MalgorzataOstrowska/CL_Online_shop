@@ -1,0 +1,16 @@
+{
+    "name": "TDD/kurs",
+    "description": "Opis",
+    "type": "project",
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "require": {
+        "phpunit/phpunit": "*",
+        "phpunit/dbunit": "2.*"
+    },
+    "autoload": {
+        "psr-0" : {
+            "" : "src/"
+        }
+    }
+}
