@@ -64,10 +64,10 @@
     constants, and global variables. 
     It can also be used to prepend the include_path.-->        
     <php>
-        <var name="DB_DNS" value="mysql:dbname=cl_online_shop;host=localhost" />
+        <var name="DB_DNS" value="mysql:dbname=cl_online_shop_Test;host=localhost" />
         <var name="DB_USER" value="root" />
         <var name="DB_PASSWORD" value="coderslab" />
-        <var name="DB_DBNAME" value="cl_online_shop" />
+        <var name="DB_DBNAME" value="cl_online_shop_Test" />
     </php>
     
 </phpunit>
