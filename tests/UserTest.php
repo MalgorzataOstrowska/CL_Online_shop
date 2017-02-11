@@ -1,13 +1,12 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
 
 /**
  * Description of UserTest
  *
  * @author gosia
  */
-class UserTest extends TestCase
+class UserTest extends ConnectionTest
 {
 //    public function testUserTestExists()
 //    {
@@ -108,7 +107,10 @@ class UserTest extends TestCase
         $this->assertEquals('gosiaPassword',$this->user->getPassword());
     }    
   
-    
+    public function testSaveToDB()
+    {
+        
+    }
     
     
     
