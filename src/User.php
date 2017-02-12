@@ -28,51 +28,91 @@ class User
         $this->password = '';
     }
 
+    /**
+     * getId
+     * @return string
+     */
     function getId()
     {
         return $this->id;
     }
 
+    /**
+     * getFirstName
+     * @return string
+     */
     function getFirstName()
     {
         return $this->firstName;
     }
     
+    /**
+     * getLastName
+     * @return string
+     */
     function getLastName()
     {
         return $this->lastName;
     }
     
+    /**
+     * getEmail
+     * @return string
+     */
     function getEmail()
     {
         return $this->email;
     }
     
+    /**
+     * getPassword
+     * @return string
+     */
     function getPassword()
     {
         return $this->password;
     }
     
+    /**
+     * setId
+     * @param string $id
+     */
     function setId($id)
     {
         $this->id = $id;
     }
 
+    /**
+     * setFirstName
+     * @param string $firstName
+     */
     function setFirstName($firstName)
     {
         $this->firstName = $firstName;
     }
 
+    /**
+     * setLastName
+     * @param string $lastName
+     */
     function setLastName($lastName)
     {
         $this->lastName = $lastName;
     }
 
+    /**
+     * setEmail
+     * @param string $email
+     */
     function setEmail($email)
     {
         $this->email = $email;
     }
 
+    /**
+     * setPassword
+     * @param string $password
+     */
     function setPassword($password)
     {
         $this->password = $password;
@@ -97,6 +137,34 @@ class User
             return $row;
         }
         return null;
+    }
+    
+    /**
+     * static loadAllUsers
+     * @param Connection $connection
+     * @return \User
+     */
+    static public function loadAllUsers(Connection $connection)
+    {
+        $sql = "SELECT * FROM user";
+        $allUsers = [];
+        $result = $connection->query($sql);
+        
+        if($result == true && $result->num_rows != 0){
+            
+            foreach($result as $row){
+                
+                $loadedUser = new User();
+                $loadedUser->id = $row['id'];
+                $loadedUser->firstName = $row['firstName'];
+                $loadedUser->lastName = $row['lastName'];
+                $loadedUser->email = $row['email'];
+                $loadedUser->password = $row['password'];
+                               
+                $allUsers[] = $loadedUser;
+            }
+        }
+        return $allUsers;
     }
     
     /**
@@ -137,4 +205,6 @@ class User
         }
         return false;            
     }
+    
+
 }

@@ -152,6 +152,7 @@ class UserTest extends ConnectionTest
         $this->assertEquals('gosia@gmail.com_to_improve', $row["email"]);
         $this->assertEquals('gosiaPassword_to_improve', $row["password"]);
     }
+    
     public function testSaveToDB_updatePart()
     {    
         $this->user->setId(2);
@@ -170,5 +171,22 @@ class UserTest extends ConnectionTest
         $this->assertEquals('Ostrowska', $row["lastName"]);
         $this->assertEquals('gosia@gmail.com', $row["email"]);
         $this->assertEquals('gosiaPassword', $row["password"]);
+    }
+    
+    public function testLoadAllUsers()
+    {
+        $allUsers = $this->user->loadAllUsers($this->connection);
+        
+        $this->assertEquals(1, $allUsers[0]->getId());
+        $this->assertEquals('Jane', $allUsers[0]->getFirstName());
+        $this->assertEquals('Doe', $allUsers[0]->getLastName());
+        $this->assertEquals('jane.doe@gmail.com', $allUsers[0]->getEmail());
+        $this->assertEquals('janePassword', $allUsers[0]->getPassword());        
+        
+        $this->assertEquals(2, $allUsers[1]->getId());
+        $this->assertEquals('Małgorzata', $allUsers[1]->getFirstName());
+        $this->assertEquals('Ostrowska', $allUsers[1]->getLastName());
+        $this->assertEquals('gosia@gmail.com', $allUsers[1]->getEmail());
+        $this->assertEquals('gosiaPassword', $allUsers[1]->getPassword());        
     }
 }
