@@ -180,33 +180,35 @@ class User
      */
     public function saveToDB(Connection $connection)
     {
-        if($this->id == -1){
-            // save
-            $sql  = "INSERT INTO `user` 
+        if (!empty($this->firstName) && !empty($this->lastName) && !empty($this->email) && !empty($this->password)) {
+            if ($this->id == -1) {
+                // save
+                $sql = "INSERT INTO `user` 
                      (`id`, `firstName`, `lastName`, `email`, `password`)
                      VALUES 
                      (NULL, '$this->firstName', '$this->lastName', '$this->email', '$this->password')";
-            
-            $result = $connection->query($sql);
-            
-            if($result == true){
-                $this->id = $connection->mysqli->insert_id;
-                return true;
-            }
-        } else{
-            // update
-            $sql = "UPDATE `user` SET 
+
+                $result = $connection->query($sql);
+
+                if ($result == true) {
+                    $this->id = $connection->mysqli->insert_id;
+                    return true;
+                }
+            } else {
+                // update
+                $sql = "UPDATE `user` SET 
                     `firstName` = '$this->firstName', 
                     `lastName` = '$this->lastName', 
                     `email` = '$this->email', 
                     `password` = '$this->password' 
                     WHERE 
                     `user`.`id` = '$this->id'";
-            
-            $result = $connection->query($sql);
-            
-            if($result == true){
-                return true;
+
+                $result = $connection->query($sql);
+
+                if ($result == true) {
+                    return true;
+                }
             }
         }
         return false;            

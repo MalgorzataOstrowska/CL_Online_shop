@@ -208,4 +208,38 @@ class UserTest extends ConnectionTest
         $id = 3;
         $this->assertFalse($this->user->deleteById($this->connection,$id));
     }
+
+    
+//    public function testSaveToDB_False()
+//    {
+//        $this->user->setFirstName('');
+//        $this->user->setLastName('Ostrowska');
+//        $this->user->setEmail('gosia2@gmail.com');
+//        $this->user->setPassword('gosiaPassword');
+//        
+//        $this->assertFalse($this->user->saveToDB($this->connection));
+//    }    
+
+    public function providerSaveToDB_False()
+    {
+        return[
+            [null,        'Ostrowska', 'gosia2@gmail.com', 'gosiaPassword'],
+            ['Małgorzata', null,       'gosia2@gmail.com', 'gosiaPassword'],
+            ['Małgorzata','Ostrowska',  null,              'gosiaPassword'],
+            ['Małgorzata','Ostrowska', 'gosia2@gmail.com',  null          ],
+        ];
+    }
+    /**
+     * @dataProvider providerSaveToDB_False
+     */ 
+    public function testSaveToDB_False($provided)
+    {
+        $this->user->setFirstName($provided[0]);
+        $this->user->setLastName($provided[1]);
+        $this->user->setEmail($provided[2]);
+        $this->user->setPassword($provided[3]);
+        $this->assertFalse($this->user->saveToDB($this->connection));
+    }  
+
+    
 }
