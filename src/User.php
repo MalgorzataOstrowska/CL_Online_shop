@@ -106,7 +106,9 @@ class User
      */
     function setEmail($email)
     {
-        $this->email = $email;
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $this->email = $email;
+        }
     }
 
     /**
@@ -115,7 +117,11 @@ class User
      */
     function setPassword($password)
     {
-        $this->password = $password;
+        if (is_string($password)) {
+            $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+            $this->password = $hashedPassword;
+            return $this;
+        }
     }
 
     /**
@@ -212,7 +218,7 @@ class User
         $sql = "DELETE FROM user WHERE id=$id";
 
         $result = $connection->query($sql);
-        echo $count = $connection->mysqli->affected_rows;
+        $count = $connection->mysqli->affected_rows;
 
         if($count == 1){
 
