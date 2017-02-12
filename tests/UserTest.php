@@ -240,6 +240,16 @@ class UserTest extends ConnectionTest
         $this->user->setPassword($provided[3]);
         $this->assertFalse($this->user->saveToDB($this->connection));
     }  
+    
+    public function testSignUp()
+    {
+        $firstName = 'Małgorzata_SignUp';
+        $lastName = 'Ostrowska_SignUp';
+        $email = 'gosia_SignUp@gmail.com';
+        $password = 'gosiaPassword_SignUp';
+        
+        $this->assertTrue($this->user->signUp($this->connection, $firstName, $lastName, $email, $password));
+    }  
 
     
 }

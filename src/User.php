@@ -214,12 +214,17 @@ class User
         return false;            
     }
     
-
+    /**
+     * deleteById
+     * @param Connection $connection
+     * @param int $id
+     * @return boolean
+     */
     public function deleteById(Connection $connection, $id)
     {
         $sql = "DELETE FROM user WHERE id=$id";
 
-        $result = $connection->query($sql);
+        $connection->query($sql);
         $count = $connection->mysqli->affected_rows;
 
         if($count == 1){
@@ -228,5 +233,15 @@ class User
         }
         
         return false;
+    }
+    
+    public function signUp(Connection $connection, $firstName, $lastName, $email, $password) 
+    {
+        $this->setFirstName($firstName);
+        $this->setLastName($lastName);
+        $this->setEmail($email);
+        $this->setPassword($password);
+        
+        return $this->saveToDB($connection);
     }
 }
