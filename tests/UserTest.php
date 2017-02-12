@@ -82,6 +82,11 @@ class UserTest extends ConnectionTest
     }
     
 // testSet:     
+    public function testSetId()
+    {
+        $this->user->setId(1);
+        $this->assertEquals(1,$this->user->getId());
+    }  
     public function testSetFirstName()
     {
         $this->user->setFirstName('Małgorzata');
@@ -129,8 +134,41 @@ class UserTest extends ConnectionTest
         $this->assertEquals('janePassword', $row["password"]);
     }    
 
-    public function testSaveToDB()
+    public function testSaveToDB_savePart()
     {
+        $this->user->setFirstName('Małgorzata_to_improve');
+        $this->user->setLastName('Ostrowska_to_improve');
+        $this->user->setEmail('gosia@gmail.com_to_improve');
+        $this->user->setPassword('gosiaPassword_to_improve');
         
+        $this->assertTrue($this->user->saveToDB($this->connection));
+
+        $id = 2;
+        $row = $this->user->loadUserById($this->connection, $id);
+        
+        $this->assertEquals(2, $row["id"]);
+        $this->assertEquals('Małgorzata_to_improve', $row["firstName"]);
+        $this->assertEquals('Ostrowska_to_improve', $row["lastName"]);
+        $this->assertEquals('gosia@gmail.com_to_improve', $row["email"]);
+        $this->assertEquals('gosiaPassword_to_improve', $row["password"]);
+    }
+    public function testSaveToDB_updatePart()
+    {    
+        $this->user->setId(2);
+        $this->user->setFirstName('Małgorzata');
+        $this->user->setLastName('Ostrowska');
+        $this->user->setEmail('gosia@gmail.com');
+        $this->user->setPassword('gosiaPassword');
+        
+        $this->assertTrue($this->user->saveToDB($this->connection));    
+        
+        $id = 2;
+        $row = $this->user->loadUserById($this->connection, $id);
+        
+        $this->assertEquals(2, $row["id"]);
+        $this->assertEquals('Małgorzata', $row["firstName"]);
+        $this->assertEquals('Ostrowska', $row["lastName"]);
+        $this->assertEquals('gosia@gmail.com', $row["email"]);
+        $this->assertEquals('gosiaPassword', $row["password"]);
     }
 }
