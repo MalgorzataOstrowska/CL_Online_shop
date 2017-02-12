@@ -13,17 +13,24 @@
  */
 class User
 {
+    private $id;
     private $firstName;
     private $lastName;
     private $email;
     private $password;
     
-    function __construct($firstName, $lastName, $email, $password)
+    function __construct()
     {
-        $this->setFirstName($firstName);
-        $this->setLastName($lastName);
-        $this->setEmail($email);
-        $this->setPassword($password);
+        $this->id = -1;
+        $this->firstName = '';
+        $this->lastName = '';
+        $this->email = '';
+        $this->password = '';
+    }
+
+    function getId()
+    {
+        return $this->id;
     }
 
     function getFirstName()
@@ -45,6 +52,11 @@ class User
     {
         return $this->password;
     }
+    
+    function setId($id)
+    {
+        $this->id = $id;
+    }
 
     function setFirstName($firstName)
     {
@@ -64,18 +76,6 @@ class User
     function setPassword($password)
     {
         $this->password = $password;
-    }
-
-    function selectByIdFromDB($id)
-    {
-        //$mysqli = new mysqli('DB_DNS', 'DB_USER', 'DB_PASSWORD', 'DB_DBNAME');
-        $mysqli = new mysqli('localhost', 'root', 'coderslab', 'cl_online_shop_Test');
-//        $mysqli = new mysqli('localhost', 'root', 'coderslab', DB_DBNAME);
-        $sql  = 'SELECT `id`, `firstName`, `lastName`, `email`, `password` FROM `user` WHERE `id`='.$id;
-        $result = $mysqli->query($sql);
-        $row = $result->fetch_assoc();
-        
-        return $row;
     }
 
     /**

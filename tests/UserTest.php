@@ -27,11 +27,12 @@ class UserTest extends ConnectionTest
     protected function setUp()
     {
         // User
-        $this->firstName = 'Małgorzata';
-        $this->lastName = 'Ostrowska';
-        $this->email = 'gosia@gmail.com';
-        $this->password = 'gosiaPassword';
-        $this->user = new User($this->firstName, $this->lastName, $this->email, $this->password);
+        $this->id = -1;
+        $this->firstName = '';
+        $this->lastName = '';
+        $this->email = '';
+        $this->password = '';
+        $this->user = new User();
         
         // Connection
         $this->config = require  __DIR__ . './../conf/configurationTest.php';
@@ -55,6 +56,11 @@ class UserTest extends ConnectionTest
     }    
 
 // testGet:    
+    public function testGetId()
+    {
+        $this->assertEquals($this->id,$this->user->getId());
+    }
+    
     public function testGetFirstName()
     {
         $this->assertEquals($this->firstName,$this->user->getFirstName());
@@ -96,34 +102,19 @@ class UserTest extends ConnectionTest
     
     public function testSetPassword()
     {
-        $this->user->setPassword('gosia@gmail.com');
-        $this->assertEquals('gosia@gmail.com',$this->user->getPassword());
+        $this->user->setPassword('gosiaPassword');
+        $this->assertEquals('gosiaPassword',$this->user->getPassword());
     }  
     
-// testConstruct:      
-    public function testConstructFirstName()
+ //testConstruct:      
+    public function testConstruct()
     {
-        new User('Małgorzata','Ostrowska','gosia@gmail.com','gosiaPassword');
-        $this->assertEquals('Małgorzata',$this->user->getFirstName());
-    }    
-    
-    public function testConstructLastName()
-    {
-        new User('Małgorzata','Ostrowska','gosia@gmail.com','gosiaPassword');
-        $this->assertEquals('Ostrowska',$this->user->getLastName());
-    }    
-    
-    public function testConstructEmali()
-    {
-        new User('Małgorzata','Ostrowska','gosia@gmail.com','gosiaPassword');
-        $this->assertEquals('gosia@gmail.com',$this->user->getEmail());
-    }    
-    
-    public function testConstructPassword()
-    {
-        new User('Małgorzata','Ostrowska','gosia@gmail.com','gosiaPassword');
-        $this->assertEquals('gosiaPassword',$this->user->getPassword());
-    }       
+        $this->assertEquals(-1,$this->user->getId());
+        $this->assertEquals('',$this->user->getFirstName());
+        $this->assertEquals('',$this->user->getLastName());
+        $this->assertEquals('',$this->user->getEmail());
+        $this->assertEquals('',$this->user->getPassword());
+    }      
 
 // testLoad:    
     public function testLoadUserById()
@@ -137,5 +128,9 @@ class UserTest extends ConnectionTest
         $this->assertEquals('jane.doe@gmail.com', $row["email"]);
         $this->assertEquals('janePassword', $row["password"]);
     }    
-    
+
+    public function testSaveToDB()
+    {
+        
+    }
 }
