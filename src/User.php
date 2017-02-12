@@ -244,4 +244,26 @@ class User
         
         return $this->saveToDB($connection);
     }
+    
+    public function logIn(Connection $connection, $email, $password) 
+    {        
+        if (!empty($email) && !empty($password)) {
+
+            $sql = "SELECT * FROM `user` WHERE `email` = '$email'";
+
+            $result = $connection->query($sql);
+
+            if ($result == true && $result->num_rows == 1) {
+
+                $row = $result->fetch_assoc();
+                $hash = $row['password'];
+
+                if (password_verify($password, $hash)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }
