@@ -189,4 +189,16 @@ class UserTest extends ConnectionTest
         $this->assertEquals('gosia@gmail.com', $allUsers[1]->getEmail());
         $this->assertEquals('gosiaPassword', $allUsers[1]->getPassword());        
     }
+    
+    public function testDeleteByIdTrue()
+    {
+        $id = 2;
+        $this->assertTrue($this->user->deleteById($this->connection,$id));
+    }
+    
+    public function testDeleteByIdFalse()
+    {
+        $id = 3;
+        $this->assertFalse($this->user->deleteById($this->connection,$id));
+    }
 }

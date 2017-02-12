@@ -207,4 +207,18 @@ class User
     }
     
 
+    public function deleteById(Connection $connection, $id)
+    {
+        $sql = "DELETE FROM user WHERE id=$id";
+
+        $result = $connection->query($sql);
+        echo $count = $connection->mysqli->affected_rows;
+
+        if($count == 1){
+
+            return true;
+        }
+        
+        return false;
+    }
 }
