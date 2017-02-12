@@ -105,13 +105,21 @@ class UserTest extends ConnectionTest
     {
         new User('Małgorzata','Ostrowska','gosia@gmail.com','gosiaPassword');
         $this->assertEquals('gosiaPassword',$this->user->getPassword());
-    }    
-  
-    public function testSaveToDB()
+    }       
+    
+    public function testLoadUserById()
     {
+        $config = require_once  __DIR__ . './../conf/configurationTest.php'; 
+        $connection = new Connection($config);
         
-    }
-    
-    
+        $id = 1;
+        $row = $this->user->loadUserById($connection, $id);
+        
+        $this->assertEquals(1, $row["id"]);
+        $this->assertEquals('Jane', $row["firstName"]);
+        $this->assertEquals('Doe', $row["lastName"]);
+        $this->assertEquals('jane.doe@gmail.com', $row["email"]);
+        $this->assertEquals('janePassword', $row["password"]);
+    }    
     
 }

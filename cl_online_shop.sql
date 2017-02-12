@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2deb1+deb.cihar.com~xenial.3
+-- version 4.6.5.2deb1+deb.cihar.com~yakkety.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Czas generowania: 10 Lut 2017, 17:25
--- Wersja serwera: 5.7.17-0ubuntu0.16.04.1
--- Wersja PHP: 7.0.8-0ubuntu0.16.04.3
+-- Host: localhost:3306
+-- Generation Time: Feb 12, 2017 at 01:13 AM
+-- Server version: 5.7.17-0ubuntu0.16.10.1
+-- PHP Version: 7.0.13-0ubuntu0.16.10.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Baza danych: `cl_online_shop`
+-- Database: `cl_online_shop`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `item`
+-- Table structure for table `item`
 --
 
 CREATE TABLE `item` (
@@ -37,7 +37,7 @@ CREATE TABLE `item` (
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `picture`
+-- Table structure for table `picture`
 --
 
 CREATE TABLE `picture` (
@@ -47,8 +47,29 @@ CREATE TABLE `picture` (
   `id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Indeksy dla zrzutów tabel
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `firstName` varchar(100) NOT NULL,
+  `lastName` varchar(100) NOT NULL,
+  `email` varchar(500) NOT NULL,
+  `password` varchar(500) CHARACTER SET utf8 COLLATE utf8_german2_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`id`, `firstName`, `lastName`, `email`, `password`) VALUES
+(1, 'Jane', 'Doe', 'jane.doe@gmail.com', 'janePassword');
+
+--
+-- Indexes for dumped tables
 --
 
 --
@@ -65,25 +86,36 @@ ALTER TABLE `picture`
   ADD KEY `item_id` (`item_id`);
 
 --
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT dla tabeli `item`
+-- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT dla tabeli `picture`
+-- AUTO_INCREMENT for table `picture`
 --
 ALTER TABLE `picture`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- Ograniczenia dla zrzutów tabel
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- Constraints for dumped tables
 --
 
 --
--- Ograniczenia dla tabeli `picture`
+-- Constraints for table `picture`
 --
 ALTER TABLE `picture`
   ADD CONSTRAINT `picture_ibfk_1` FOREIGN KEY (`item_id`) REFERENCES `item` (`id`);
