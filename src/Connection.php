@@ -26,7 +26,7 @@ class Connection {
         if ($this->mysqli->connect_error) {
             die('Connection unsuccessful. Error: ' . $this->mysqli->connect_error .'<br>');
         }
-        echo 'Connection successful.<br>';
+        //echo 'Connection successful.<br>';
         
         $this->mysqli->set_charset('utf8');
     }

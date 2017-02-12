@@ -15,6 +15,10 @@ class UserTest extends ConnectionTest
 //    }
     
     private $user;
+    
+    private $connection;
+    private $config;
+    
     private $firstName;
     private $lastName;
     private $email;
@@ -22,23 +26,35 @@ class UserTest extends ConnectionTest
     
     protected function setUp()
     {
+        // User
         $this->firstName = 'Małgorzata';
         $this->lastName = 'Ostrowska';
         $this->email = 'gosia@gmail.com';
         $this->password = 'gosiaPassword';
-
         $this->user = new User($this->firstName, $this->lastName, $this->email, $this->password);
+        
+        // Connection
+        $this->config = require  __DIR__ . './../conf/configurationTest.php';
+        $this->connection = new Connection($this->config);
     }
     protected function tearDown()
     {
         $this->user = null;
+        $this->connection = null;
     }    
-    
-    public function testUserTestExists()
+
+// testClass:    
+    public function testUserExists()
     {
         $this->assertInstanceOf(User::class, $this->user);
-    }    
+    } 
     
+    public function testConnectionExists()
+    {
+        $this->assertInstanceOf(Connection::class, $this->connection);
+    }    
+
+// testGet:    
     public function testGetFirstName()
     {
         $this->assertEquals($this->firstName,$this->user->getFirstName());
@@ -59,6 +75,7 @@ class UserTest extends ConnectionTest
         $this->assertEquals($this->password,$this->user->getPassword());
     }
     
+// testSet:     
     public function testSetFirstName()
     {
         $this->user->setFirstName('Małgorzata');
@@ -83,6 +100,7 @@ class UserTest extends ConnectionTest
         $this->assertEquals('gosia@gmail.com',$this->user->getPassword());
     }  
     
+// testConstruct:      
     public function testConstructFirstName()
     {
         new User('Małgorzata','Ostrowska','gosia@gmail.com','gosiaPassword');
@@ -106,14 +124,12 @@ class UserTest extends ConnectionTest
         new User('Małgorzata','Ostrowska','gosia@gmail.com','gosiaPassword');
         $this->assertEquals('gosiaPassword',$this->user->getPassword());
     }       
-    
+
+// testLoad:    
     public function testLoadUserById()
     {
-        $config = require_once  __DIR__ . './../conf/configurationTest.php'; 
-        $connection = new Connection($config);
-        
         $id = 1;
-        $row = $this->user->loadUserById($connection, $id);
+        $row = $this->user->loadUserById($this->connection, $id);
         
         $this->assertEquals(1, $row["id"]);
         $this->assertEquals('Jane', $row["firstName"]);
