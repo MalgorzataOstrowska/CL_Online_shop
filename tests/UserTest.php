@@ -127,7 +127,7 @@ class UserTest extends ConnectionTest
         $this->assertEquals('',$this->user->getEmail());
         $this->assertEquals('',$this->user->getPassword());
     }      
-
+       
 // testLoad:    
     public function testLoadUserById()
     {
@@ -138,47 +138,8 @@ class UserTest extends ConnectionTest
         $this->assertEquals('Jane', $row["firstName"]);
         $this->assertEquals('Doe', $row["lastName"]);
         $this->assertEquals('jane.doe@gmail.com', $row["email"]);
-        $this->assertEquals('janePassword', $row["password"]);
+        $this->assertTrue(password_verify('janePassword', $row["password"]));
     }    
-
-    public function testSaveToDB_savePart()
-    {
-        $this->user->setFirstName('Małgorzata_to_improve');
-        $this->user->setLastName('Ostrowska_to_improve');
-        $this->user->setEmail('gosia_to_improve@gmail.com');
-        $this->user->setPassword('gosiaPassword_to_improve');
-        
-        $this->assertTrue($this->user->saveToDB($this->connection));
-
-        $id = 2;
-        $row = $this->user->loadUserById($this->connection, $id);
-        
-        $this->assertEquals(2, $row["id"]);
-        $this->assertEquals('Małgorzata_to_improve', $row["firstName"]);
-        $this->assertEquals('Ostrowska_to_improve', $row["lastName"]);
-        $this->assertEquals('gosia_to_improve@gmail.com', $row["email"]);
-        $this->assertTrue(password_verify('gosiaPassword_to_improve',  $this->user->getPassword()));
-    }
-    
-    public function testSaveToDB_updatePart()
-    {    
-        $this->user->setId(2);
-        $this->user->setFirstName('Małgorzata');
-        $this->user->setLastName('Ostrowska');
-        $this->user->setEmail('gosia@gmail.com');
-        $this->user->setPassword('gosiaPassword');
-        
-        $this->assertTrue($this->user->saveToDB($this->connection));    
-        
-        $id = 2;
-        $row = $this->user->loadUserById($this->connection, $id);
-        
-        $this->assertEquals(2, $row["id"]);
-        $this->assertEquals('Małgorzata', $row["firstName"]);
-        $this->assertEquals('Ostrowska', $row["lastName"]);
-        $this->assertEquals('gosia@gmail.com', $row["email"]);
-        $this->assertTrue(password_verify('gosiaPassword',  $this->user->getPassword()));        
-    }
     
     public function testLoadAllUsers()
     {
@@ -188,24 +149,63 @@ class UserTest extends ConnectionTest
         $this->assertEquals('Jane', $allUsers[0]->getFirstName());
         $this->assertEquals('Doe', $allUsers[0]->getLastName());
         $this->assertEquals('jane.doe@gmail.com', $allUsers[0]->getEmail());
-        $this->assertEquals('janePassword', $allUsers[0]->getPassword());        
+        $this->assertTrue(password_verify('janePassword', $allUsers[0]->getPassword()));          
         
         $this->assertEquals(2, $allUsers[1]->getId());
-        $this->assertEquals('Małgorzata', $allUsers[1]->getFirstName());
-        $this->assertEquals('Ostrowska', $allUsers[1]->getLastName());
-        $this->assertEquals('gosia@gmail.com', $allUsers[1]->getEmail());
-        $this->assertTrue(password_verify('gosiaPassword', $allUsers[1]->getPassword()));          
+        $this->assertEquals('John', $allUsers[1]->getFirstName());
+        $this->assertEquals('Smith', $allUsers[1]->getLastName());
+        $this->assertEquals('john.smith@gmail.com', $allUsers[1]->getEmail());
+        $this->assertTrue(password_verify('johnPassword', $allUsers[1]->getPassword()));          
     }
     
+    public function testSaveToDB_savePart()
+    {
+        $this->user->setFirstName('Małgorzata_to_improve');
+        $this->user->setLastName('Ostrowska_to_improve');
+        $this->user->setEmail('gosia_to_improve@gmail.com');
+        $this->user->setPassword('gosiaPassword_to_improve');
+        
+        $this->assertTrue($this->user->saveToDB($this->connection));
+        $id = $this->connection->mysqli->insert_id;
+        $row = $this->user->loadUserById($this->connection, $id);
+        
+        $this->assertEquals($id, $row["id"]);
+        $this->assertEquals('Małgorzata_to_improve', $row["firstName"]);
+        $this->assertEquals('Ostrowska_to_improve', $row["lastName"]);
+        $this->assertEquals('gosia_to_improve@gmail.com', $row["email"]);
+        $this->assertTrue(password_verify('gosiaPassword_to_improve',  $this->user->getPassword()));
+    }
+    
+    public function testSaveToDB_updatePart()
+    {   
+        $id = 3;
+        
+        $this->user->setId($id);
+        $this->user->setFirstName('Małgorzata');
+        $this->user->setLastName('Ostrowska');
+        $this->user->setEmail('gosia@gmail.com');
+        $this->user->setPassword('janePassword');
+        
+        $this->assertTrue($this->user->saveToDB($this->connection));    
+        
+        $row = $this->user->loadUserById($this->connection, $id);
+        
+        $this->assertEquals($id, $row["id"]);
+        $this->assertEquals('Małgorzata', $row["firstName"]);
+        $this->assertEquals('Ostrowska', $row["lastName"]);
+        $this->assertEquals('gosia@gmail.com', $row["email"]);
+        $this->assertTrue(password_verify('janePassword',  $this->user->getPassword()));        
+    }
+
     public function testDeleteByIdTrue()
     {
-        $id = 2;
+        $id = 3;
         $this->assertTrue($this->user->deleteById($this->connection,$id));
     }
     
     public function testDeleteByIdFalse()
     {
-        $id = 3;
+        $id = 100;
         $this->assertFalse($this->user->deleteById($this->connection,$id));
     }
 

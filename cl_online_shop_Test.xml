@@ -7,9 +7,9 @@
 		<field Field="lastName" Type="varchar(100)" Null="NO" Key="" Extra="" Comment="" />
 		<field Field="email" Type="varchar(500)" Null="NO" Key="UNI" Extra="" Comment="" />
 		<field Field="password" Type="varchar(500)" Null="NO" Key="" Extra="" Comment="" />
-		<key Table="user" Non_unique="0" Key_name="PRIMARY" Seq_in_index="1" Column_name="id" Collation="A" Cardinality="1" Null="" Index_type="BTREE" Comment="" Index_comment="" />
-		<key Table="user" Non_unique="0" Key_name="email" Seq_in_index="1" Column_name="email" Collation="A" Cardinality="1" Null="" Index_type="BTREE" Comment="" Index_comment="" />
-		<options Name="user" Engine="InnoDB" Version="10" Row_format="Dynamic" Rows="1" Avg_row_length="16384" Data_length="16384" Max_data_length="0" Index_length="0" Data_free="0" Auto_increment="3" Create_time="2017-02-12 22:02:44" Update_time="2017-02-12 21:58:29" Collation="utf8_general_ci" Create_options="" Comment="" />
+		<key Table="user" Non_unique="0" Key_name="PRIMARY" Seq_in_index="1" Column_name="id" Collation="A" Cardinality="2" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<key Table="user" Non_unique="0" Key_name="email" Seq_in_index="1" Column_name="email" Collation="A" Cardinality="2" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<options Name="user" Engine="InnoDB" Version="10" Row_format="Dynamic" Rows="2" Avg_row_length="8192" Data_length="16384" Max_data_length="0" Index_length="16384" Data_free="0" Auto_increment="3" Create_time="2017-02-12 22:02:44" Update_time="2017-02-13 22:15:03" Collation="utf8_general_ci" Create_options="" Comment="" />
 	</table_structure>
 	<table_data name="user">
 	<row>
@@ -17,7 +17,14 @@
 		<field name="firstName">Jane</field>
 		<field name="lastName">Doe</field>
 		<field name="email">jane.doe@gmail.com</field>
-		<field name="password">janePassword</field>
+		<field name="password">$2y$10$OJ5ZvezGNVvBX.CR8Rj5zORGsVIQ3jGlkwR37Zqr.BR74NWgBfdEW</field>
+	</row>
+	<row>
+		<field name="id">2</field>
+		<field name="firstName">John</field>
+		<field name="lastName">Smith</field>
+		<field name="email">john.smith@gmail.com</field>
+		<field name="password">$2y$10$1q78WreOwf2xDTEORZBzku342TRQkrWJc6uiaYlN4Znnc7uPvrA.m</field>
 	</row>
 	</table_data>
 </database>
