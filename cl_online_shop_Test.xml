@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <mysqldump xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <database name="cl_online_shop_Test">
-	<table_structure name="user">
+    	<table_structure name="user">
 		<field Field="id" Type="int(11)" Null="NO" Key="PRI" Extra="auto_increment" Comment="" />
 		<field Field="firstName" Type="varchar(100)" Null="NO" Key="" Extra="" Comment="" />
 		<field Field="lastName" Type="varchar(100)" Null="NO" Key="" Extra="" Comment="" />
@@ -9,7 +9,7 @@
 		<field Field="password" Type="varchar(500)" Null="NO" Key="" Extra="" Comment="" />
 		<key Table="user" Non_unique="0" Key_name="PRIMARY" Seq_in_index="1" Column_name="id" Collation="A" Cardinality="2" Null="" Index_type="BTREE" Comment="" Index_comment="" />
 		<key Table="user" Non_unique="0" Key_name="email" Seq_in_index="1" Column_name="email" Collation="A" Cardinality="2" Null="" Index_type="BTREE" Comment="" Index_comment="" />
-		<options Name="user" Engine="InnoDB" Version="10" Row_format="Dynamic" Rows="2" Avg_row_length="8192" Data_length="16384" Max_data_length="0" Index_length="16384" Data_free="0" Auto_increment="3" Create_time="2017-02-12 22:02:44" Update_time="2017-02-13 22:15:03" Collation="utf8_general_ci" Create_options="" Comment="" />
+		<options Name="user" Engine="InnoDB" Version="10" Row_format="Dynamic" Rows="2" Avg_row_length="8192" Data_length="16384" Max_data_length="0" Index_length="16384" Data_free="0" Auto_increment="6" Create_time="2017-02-12 22:02:44" Update_time="2017-02-13 23:04:18" Collation="utf8_general_ci" Create_options="" Comment="" />
 	</table_structure>
 	<table_data name="user">
 	<row>
@@ -25,6 +25,128 @@
 		<field name="lastName">Smith</field>
 		<field name="email">john.smith@gmail.com</field>
 		<field name="password">$2y$10$1q78WreOwf2xDTEORZBzku342TRQkrWJc6uiaYlN4Znnc7uPvrA.m</field>
+	</row>
+	</table_data>
+	<table_structure name="item">
+		<field Field="id" Type="int(11)" Null="NO" Key="PRI" Extra="auto_increment" Comment="" />
+		<field Field="name" Type="varchar(200)" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="price" Type="float" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="description" Type="text" Null="NO" Key="" Extra="" Comment="" />
+		<field Field="availability" Type="int(11)" Null="NO" Key="" Extra="" Comment="" />
+		<key Table="item" Non_unique="0" Key_name="PRIMARY" Seq_in_index="1" Column_name="id" Collation="A" Cardinality="5" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<options Name="item" Engine="InnoDB" Version="10" Row_format="Dynamic" Rows="5" Avg_row_length="3276" Data_length="16384" Max_data_length="0" Index_length="0" Data_free="0" Auto_increment="6" Create_time="2017-02-13 21:47:53" Update_time="2017-02-13 22:59:18" Collation="latin1_swedish_ci" Create_options="" Comment="" />
+	</table_structure>
+	<table_data name="item">
+	<row>
+		<field name="id">1</field>
+		<field name="name">first product name</field>
+		<field name="price">10.99</field>
+		<field name="description">first product description</field>
+		<field name="availability">10</field>
+	</row>
+	<row>
+		<field name="id">2</field>
+		<field name="name">second product name</field>
+		<field name="price">20.99</field>
+		<field name="description">second product description</field>
+		<field name="availability">20</field>
+	</row>
+	<row>
+		<field name="id">3</field>
+		<field name="name">third product name</field>
+		<field name="price">30.99</field>
+		<field name="description">third product description</field>
+		<field name="availability">30</field>
+	</row>
+	<row>
+		<field name="id">4</field>
+		<field name="name">fourth product name</field>
+		<field name="price">40.99</field>
+		<field name="description">fourth product description</field>
+		<field name="availability">40</field>
+	</row>
+	<row>
+		<field name="id">5</field>
+		<field name="name">fifth product name</field>
+		<field name="price">50.99</field>
+		<field name="description">fourth product description</field>
+		<field name="availability">0</field>
+	</row>
+	</table_data>
+	<table_structure name="order">
+		<field Field="id" Type="int(11)" Null="NO" Key="PRI" Extra="auto_increment" Comment="" />
+		<field Field="user_id" Type="int(11)" Null="NO" Key="MUL" Extra="" Comment="" />
+		<key Table="order" Non_unique="0" Key_name="PRIMARY" Seq_in_index="1" Column_name="id" Collation="A" Cardinality="4" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<key Table="order" Non_unique="1" Key_name="user_id" Seq_in_index="1" Column_name="user_id" Collation="A" Cardinality="2" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<options Name="order" Engine="InnoDB" Version="10" Row_format="Dynamic" Rows="4" Avg_row_length="4096" Data_length="16384" Max_data_length="0" Index_length="16384" Data_free="0" Auto_increment="5" Create_time="2017-02-13 22:58:18" Update_time="2017-02-13 23:00:35" Collation="utf8_general_ci" Create_options="" Comment="" />
+	</table_structure>
+	<table_data name="order">
+	<row>
+		<field name="id">1</field>
+		<field name="user_id">1</field>
+	</row>
+	<row>
+		<field name="id">2</field>
+		<field name="user_id">1</field>
+	</row>
+	<row>
+		<field name="id">3</field>
+		<field name="user_id">2</field>
+	</row>
+	<row>
+		<field name="id">4</field>
+		<field name="user_id">2</field>
+	</row>
+	</table_data>
+	<table_structure name="order_item">
+		<field Field="id" Type="int(11)" Null="NO" Key="PRI" Extra="auto_increment" Comment="" />
+		<field Field="order_id" Type="int(11)" Null="NO" Key="MUL" Extra="" Comment="" />
+		<field Field="item_id" Type="int(11)" Null="NO" Key="MUL" Extra="" Comment="" />
+		<key Table="order_item" Non_unique="0" Key_name="PRIMARY" Seq_in_index="1" Column_name="id" Collation="A" Cardinality="7" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<key Table="order_item" Non_unique="1" Key_name="order_id" Seq_in_index="1" Column_name="order_id" Collation="A" Cardinality="4" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<key Table="order_item" Non_unique="1" Key_name="item_id" Seq_in_index="1" Column_name="item_id" Collation="A" Cardinality="4" Null="" Index_type="BTREE" Comment="" Index_comment="" />
+		<options Name="order_item" Engine="InnoDB" Version="10" Row_format="Dynamic" Rows="8" Avg_row_length="2048" Data_length="16384" Max_data_length="0" Index_length="32768" Data_free="0" Auto_increment="9" Create_time="2017-02-13 23:02:07" Update_time="2017-02-13 23:03:55" Collation="utf8_general_ci" Create_options="" Comment="" />
+	</table_structure>
+	<table_data name="order_item">
+	<row>
+		<field name="id">1</field>
+		<field name="order_id">1</field>
+		<field name="item_id">1</field>
+	</row>
+	<row>
+		<field name="id">2</field>
+		<field name="order_id">2</field>
+		<field name="item_id">2</field>
+	</row>
+	<row>
+		<field name="id">3</field>
+		<field name="order_id">2</field>
+		<field name="item_id">3</field>
+	</row>
+	<row>
+		<field name="id">4</field>
+		<field name="order_id">2</field>
+		<field name="item_id">4</field>
+	</row>
+	<row>
+		<field name="id">5</field>
+		<field name="order_id">3</field>
+		<field name="item_id">3</field>
+	</row>
+	<row>
+		<field name="id">6</field>
+		<field name="order_id">4</field>
+		<field name="item_id">2</field>
+	</row>
+	<row>
+		<field name="id">7</field>
+		<field name="order_id">4</field>
+		<field name="item_id">3</field>
+	</row>
+	<row>
+		<field name="id">8</field>
+		<field name="order_id">4</field>
+		<field name="item_id">4</field>
 	</row>
 	</table_data>
 </database>
